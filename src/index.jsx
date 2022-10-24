@@ -708,6 +708,8 @@ export default class DatePicker extends React.Component {
         } else {
           this.setOpen(false);
         }
+      } else if (eventKey === "Tab" && !this.props.enableTabLoop) {
+        this.setOpen(false);
       } else if (eventKey === "Escape") {
         event.preventDefault();
         this.setOpen(false);
@@ -751,6 +753,11 @@ export default class DatePicker extends React.Component {
     } else if (eventKey === "Escape") {
       event.preventDefault();
 
+      this.setOpen(false);
+      if (!this.inputOk()) {
+        this.props.onInputError({ code: 1, msg: INPUT_ERR_1 });
+      }
+    } else if (eventKey === "Tab" && !this.props.enableTabLoop) {
       this.setOpen(false);
       if (!this.inputOk()) {
         this.props.onInputError({ code: 1, msg: INPUT_ERR_1 });
